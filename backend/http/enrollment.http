@@ -1,0 +1,31 @@
+### Submit enrollment application
+POST https://api.example.com/enrollment/applications
+Content-Type: application/json
+X-Correlation-ID: demo-correlation-id
+
+{
+  "guardian_email": "guardian@example.com",
+  "guardian_phone": "+201234567890",
+  "student_first_name": "Ali",
+  "student_last_name": "Hassan",
+  "checklist": {
+    "birth_certificate": true,
+    "vaccination_record": true,
+    "proof_of_address": false
+  },
+  "metadata": {
+    "preferred_language": "ar",
+    "grade_level": "G07"
+  }
+}
+
+### Approve enrollment application
+PATCH https://api.example.com/enrollment/applications/{{application_id}}/approve
+Content-Type: application/json
+X-Correlation-ID: demo-correlation-id
+
+{
+  "approved_by": "{{staff_id}}",
+  "notes": "Reviewed on 18/02/2025",
+  "assigned_student_code": "STU-001"
+}
