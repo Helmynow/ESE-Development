@@ -1,0 +1,7 @@
+fastapi
+httpx
+hypothesis
+pydantic
+pytest
+pytest-asyncio
+pytest-cov
