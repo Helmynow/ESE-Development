@@ -1,0 +1,122 @@
+### Submit enrollment application
+POST {{baseUrl}}/api/enrollment/applications
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+X-Correlation-ID: {{uuid}}
+
+{
+  "application_code": "ENR-2024-0001",
+  "student": {
+    "given_name": "Salma",
+    "family_name": "Hassan",
+    "grade_level": "KG2"
+  },
+  "guardian_external_id": "guardian-0001",
+  "metadata": {
+    "source": "seed-dev"
+  }
+}
+
+> {%%
+"status": 201,
+"body": {
+  "id": "{{applicationId}}",
+  "application_code": "ENR-2024-0001",
+  "status": "submitted",
+  "events": [
+    {
+      "event_type": "enrollment.submitted",
+      "published_at": "2024-04-15T09:30:00+02:00",
+      "payload": {
+        "application_id": "{{applicationId}}",
+        "application_code": "ENR-2024-0001",
+        "student": {
+          "given_name": "Salma",
+          "family_name": "Hassan",
+          "grade_level": "KG2"
+        },
+        "guardian_external_id": "guardian-0001"
+      }
+    }
+  ]
+}
+%%}
+
+### Approve enrollment application
+POST {{baseUrl}}/api/enrollment/applications/{{applicationId}}/approval
+Authorization: Bearer {{registrarToken}}
+Content-Type: application/json
+X-Correlation-ID: {{uuid}}
+
+{
+  "decision": "approved",
+  "notes": "Checklist complete; seat confirmed."
+}
+
+> {%%
+"status": 200,
+"body": {
+  "id": "{{applicationId}}",
+  "status": "approved",
+  "approved_at": "2024-04-15T11:00:00+02:00",
+  "events": [
+    {
+      "event_type": "enrollment.approved",
+      "published_at": "2024-04-15T11:00:00+02:00",
+      "payload": {
+        "application_id": "{{applicationId}}",
+        "application_code": "ENR-2024-0001",
+        "approver_id": "registrar-0001",
+        "notes": "Checklist complete; seat confirmed."
+      }
+    }
+  ]
+}
+%%}
+
+### Provision student profile after approval
+POST {{baseUrl}}/api/enrollment/applications/{{applicationId}}/provision
+Authorization: Bearer {{registrarToken}}
+Content-Type: application/json
+X-Correlation-ID: {{uuid}}
+
+{
+  "student_profile": {
+    "student_code": "STU-0001",
+    "homeroom": "HR-A1"
+  },
+  "enrollments": [
+    { "course_code": "MATH-KG2", "status": "active" },
+    { "course_code": "LANG-KG2", "status": "active" }
+  ]
+}
+
+> {%%
+"status": 200,
+"body": {
+  "id": "{{applicationId}}",
+  "status": "provisioned",
+  "student_profile": {
+    "student_code": "STU-0001",
+    "homeroom": "HR-A1"
+  },
+  "enrollments": [
+    { "course_code": "MATH-KG2", "status": "active" },
+    { "course_code": "LANG-KG2", "status": "active" }
+  ],
+  "events": [
+    {
+      "event_type": "enrollment.provisioned",
+      "published_at": "2024-04-15T12:00:00+02:00",
+      "payload": {
+        "application_id": "{{applicationId}}",
+        "student_code": "STU-0001",
+        "enrollments": [
+          { "course_code": "MATH-KG2", "status": "active" },
+          { "course_code": "LANG-KG2", "status": "active" }
+        ]
+      }
+    }
+  ]
+}
+%%}

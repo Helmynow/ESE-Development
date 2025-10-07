@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ese-backend"
+version = "0.1.0"
+description = "ESE modular monolith backend"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.109,<1",
+    "uvicorn[standard]>=0.26,<0.29",
+    "pydantic>=2.6,<3",
+    "pydantic-settings>=2.1,<3",
+    "sqlalchemy[asyncio]>=2.0,<3",
+    "asyncpg>=0.28,<0.29",
+    "redis>=5,<6",
+    "jsonschema>=4.21,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.2.0",
+    "mypy>=1.8.0",
+    "ruff>=0.2.0",
+    "pytest>=8.0.0",
+    "httpx>=0.26.0",
+    "types-redis>=4.6.0.20240218",
+    "types-jsonschema>=4.21.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["backend"]
+include = ["app*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+mypy_path = "backend"

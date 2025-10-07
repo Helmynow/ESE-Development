@@ -1,0 +1,10 @@
+### Submit enrollment application
+POST http://localhost:8000/enrollment/applications
+Content-Type: application/json
+X-Correlation-ID: 123e4567-e89b-12d3-a456-426614174000
+
+{
+  "guardian_email": "guardian@example.com",
+  "student_first_name": "Layla",
+  "student_last_name": "Hassan"
+}
