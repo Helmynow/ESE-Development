@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: ese-backend
+Version: 0.1.0
+Summary: Backend services for ESE automation platform
+Author-email: ESE Platform <devnull@example.com>
+License-Expression: MIT
+Requires-Python: >=3.12
+Requires-Dist: fastapi<1.0.0,>=0.115.0
+Requires-Dist: pydantic<3.0.0,>=2.8.0
+Requires-Dist: sqlalchemy<3.0.0,>=2.0.36
+Requires-Dist: alembic<2.0.0,>=1.14.0
+Requires-Dist: psycopg[binary,pool]<4.0.0,>=3.1.12
+Requires-Dist: python-dotenv<2.0.0,>=1.0.1
+Provides-Extra: dev
+Requires-Dist: black<25.0.0,>=24.10.0; extra == "dev"
+Requires-Dist: mypy<2.0.0,>=1.13.0; extra == "dev"
+Requires-Dist: ruff<1.0.0,>=0.8.0; extra == "dev"
+Requires-Dist: pytest<9.0.0,>=8.3.0; extra == "dev"
+Requires-Dist: pytest-cov<6.0.0,>=5.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio<1.0.0,>=0.24.0; extra == "dev"
+Requires-Dist: httpx<0.28.0,>=0.27.0; extra == "dev"
+Requires-Dist: bandit<2.0.0,>=1.7.10; extra == "dev"
+Requires-Dist: pip-audit<3.0.0,>=2.7.3; extra == "dev"
